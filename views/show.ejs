@@ -1,0 +1,105 @@
+<% layout("/layouts/boilerplate") %>
+<div class="rows">
+    <div class="col-8 offset-3">
+        <h3><%=data.title %></h3>
+    </div>
+
+    <div class="card card-listing col-6 offset-3 show-card">
+          <img src="<%=data.image.url %>" class="card-img-top show-img" alt="...">
+  <div class="card-body">
+    <p class="card-text">
+      <b>Owned By :</b>  <i> <%= data.owner.username %></i></b>
+      <br>
+        <%=data.description %>
+        <br>
+        &#8377;<%= data.price.toLocaleString("en-IN") %>
+        <br>
+        <%=data.location %>
+        <br>
+        <%=data.country %>
+    </p>
+  </div>
+    </div>
+      <% if(currUser && currUser._id.equals(data.owner._id)) { %>
+
+      
+   <div class="show-btns ">
+    <a href="/listings/<%=data._id %>/edit" class="btn btn-dark col-1 offset-3 btn-edit mb-1">Edit</a><br>
+
+    <form method="POST" action="/listings/<%=data._id %>?_method=DELETE">
+        <button type="submit" class="btn btn-dark col-1 offset-3  mb-2">Delete</button>
+    </form>
+   </div> 
+        <% }%>
+   <div>
+    <form method="POST" action="/listings/<%=data._id%>/reviews" novalidate class="needs-validation" >
+        <div class="col-6 offset-3 mb-3  ">
+            <hr>
+            <% if(currUser){ %>
+            <h4>Leave a Review</h4>
+
+<fieldset class="starability-heartbeat">
+  <legend>First rating:</legend>
+  <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]" value="1" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="Review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="Review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="Review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="Review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="Review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+
+           <div class="col-4 mb-3">
+            <label for="Comment" class="form-label">Comment</label>
+            <textarea rows="5" cols="20" class="form-control" name="Review[comment]" required ></textarea>
+            <div class="invalid-feedback">Please adds Comment</div>
+
+           </div>
+           <button class="btn btn-outline-dark" type="submit">submit</button>
+        </div>
+        
+    </form>
+   <% }%>
+   </div>
+   
+  <%if(data.reviews.length > 0){ %>
+     <hr>
+    <p><b>All Reviews</b></p>
+<%}%>
+
+   <div class="row">
+    <% for (let rev of data.reviews) {%>
+        <div class="card  col-5 ms-3 mb-3">
+            <div class="card-body">
+                <h5><%=rev.author.username %></h5>
+                   <p class="starability-result card-text" data-rating="<%=rev.rating%>"> </p>
+                <p class="card-text"> <%=rev.comment%></p>
+  
+                 <form method="post" action="/listings/<%=data._id %>/reviews/<%=rev._id%>?_method=DELETE"><button class="btn btn-dark">Delete</button></form>
+            </div>
+           
+        </div>
+        <% } %>
+   </div>
+ 
+
+<div class="col-6 offset-2">
+    <h3>Where you'll be</h3>
+
+    <div id="map"></div>
+
+
+<script>
+    const coordinates = <%- JSON.stringify(data.geometry.coordinates) %>
+    const locationName = "<%= data.location %>";
+</script>
+
+<script src="/js/map.js"></script>
+  
+ </div>
+
+</div>
