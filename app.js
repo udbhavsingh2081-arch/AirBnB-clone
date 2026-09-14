@@ -61,16 +61,17 @@ app.use((req,res,next)=>{
       res.locals.currUser=req.user;
     next();
 });
-let MongoUrl=process.env.ATLASDB_URL;
-main().then(()=>{
-    console.log("connected with DB");
-}).catch((er)=>{
-    console.log(er);
-})
+let MongoUrl = process.env.ATLASDB_URL;
 
 async function main() {
-  await  mongoose.connect(MongoUrl);
+    await mongoose.connect(MongoUrl);
+    console.log("Connected with MongoDB Atlas");
+    console.log("Connected DB name:", mongoose.connection.name);
 }
+
+main().catch((err) => {
+    console.log("MongoDB connection error:", err);
+});
 
 app.get("/", (req, res) => {
     res.redirect("/listings");
@@ -93,6 +94,8 @@ app.use((err,req,res,next)=>{
 });
 
 
-app.listen(8080,()=>{
-    console.log("server start");
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });
