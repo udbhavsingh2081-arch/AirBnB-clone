@@ -61,7 +61,7 @@ app.use((req,res,next)=>{
       res.locals.currUser=req.user;
     next();
 });
-
+let MongoUrl=process.env.ATLASDB_URL;
 main().then(()=>{
     console.log("connected with DB");
 }).catch((er)=>{
@@ -69,7 +69,8 @@ main().then(()=>{
 })
 
 async function main() {
-  await  mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    console.log("Mongo URL:", process.env.ATLASDB_URL);
+  await  mongoose.connect(MongoUrl);
 }
 
 app.get("/",wrapAsync(async(req,res)=>{

@@ -22,7 +22,25 @@ const schemalisting = new mongoose.Schema({
             default: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
         },
     },
-
+    category: {
+        type: String,
+          enum: [
+            "Trending",
+            "Rooms",
+            "Iconic Cities",
+            "Mountains",
+            "Villa",
+            "Forest",
+            "Surfing",
+            "Apartments",
+            "Farm House",
+            "Cabins",
+            "Lake",
+            "Desert",
+            "Island"
+        ],
+        default: "Trending"
+    },
     price: {
         type: Number,
         required: true,

@@ -79,3 +79,42 @@ module.exports.showList=(async(req,res)=>{
     }
     res.render("show",{data});
 });
+
+module.exports.showByCategory= async(req,res)=>{
+    let {category}=req.params;
+    const list=await Listing.find({   category  });
+ res.render("index.ejs",{ allListings: list});
+}
+
+module.exports.searchList=async(req,res)=>{
+let {country, city, minPrice, maxPrice }=req.query;
+    let filter={};
+
+     if (country) {
+        filter.country = country;
+    }
+
+    if (city) {
+        filter.location = city;
+    }
+
+      if (minPrice || maxPrice) {
+        filter.price = {};
+
+        if (minPrice) {
+            filter.price.$gte = Number(minPrice);
+        }
+
+        if (maxPrice) {
+            filter.price.$lte = Number(maxPrice);
+        }
+    }
+
+      let allListings = await Listing.find(filter);
+
+    if(allListings.length===0){ 
+        allListings=await Listing.find();
+         req.flash("error","Listing not available!")
+    }
+   res.redirect("/listings")
+}

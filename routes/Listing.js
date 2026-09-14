@@ -28,6 +28,9 @@ router.post(
 );
 
 
+//searchBar
+router.get("/search",wrapAsync(listingControllers.searchList));
+
 //Edit
 router.get("/:id/edit",isloggedIn,isowner,wrapAsync(listingControllers.renderEditList));
 
@@ -39,5 +42,8 @@ router.delete("/:id",isloggedIn,isowner,wrapAsync(listingControllers.Destroy));
 
 //show
 router.get("/:id",isloggedIn,wrapAsync(listingControllers.showList));
+
+//Show By Category
+router.get("/category/:category",wrapAsync(listingControllers.showByCategory));
 
 module.exports=router;
