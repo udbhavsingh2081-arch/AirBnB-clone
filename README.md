@@ -1,59 +1,74 @@
-# AirBnB Clone
+AirBnB Clone
 
 A full-stack property listing web application built with Node.js, Express.js, MongoDB, and EJS.
 
-The application allows users to create and manage property listings, add reviews, and authenticate using session-based login.
+The application allows users to create and manage property listings, upload images, add reviews, authenticate using Passport.js, and view listing locations on a map.
 
-## Features
+Features
+User registration and login
+Session-based authentication
+Create, edit, and delete property listings
+Listing ownership and authorization
+Add and delete reviews
+Star-based rating system
+Server-side form validation
+Flash messages for user feedback
+Search listings by location and price
+Category-based listing filtering
+Multiple image uploads
+Cloudinary image storage
+Map-based location display
+Geolocation using listing coordinates
+Responsive interface
+MVC-based project structure
+Centralized error handling
+MongoDB database integration
+Tech Stack
 
-- User registration and login
-- Session-based authentication
-- Create, edit, and delete property listings
-- Listing ownership and authorization
-- Add and delete reviews
-- Star-based rating system
-- Server-side form validation
-- Flash messages for user feedback
-- Responsive interface
-- Map-based location display
-- MVC-based project structure
-- Centralized error handling
-- MongoDB database integration
+Frontend
 
-## Tech Stack
+HTML
+CSS
+JavaScript
+EJS
+Bootstrap
 
-**Frontend**
-- HTML
-- CSS
-- JavaScript
-- EJS
-- Bootstrap
+Backend
 
-**Backend**
-- Node.js
-- Express.js
+Node.js
+Express.js
 
-**Database**
-- MongoDB
-- Mongoose
+Database
 
-**Authentication**
-- Passport.js
-- Express Session
+MongoDB
+Mongoose
+MongoDB Atlas
 
-**Validation & Middleware**
-- Joi
-- Method Override
-- Custom Express Middleware
+Authentication
 
-**Other**
-- Cloudinary
-- Multer
-- Git & GitHub
+Passport.js
+Passport Local Mongoose
+Express Session
 
-## Project Structure
+Validation & Middleware
 
-```text
+Joi
+Method Override
+Custom Express Middleware
+Express Error Handling
+
+Image & Location
+
+Cloudinary
+Multer
+Geocoding API
+GeoJSON
+
+Other
+
+Git & GitHub
+Render
+Project Structure
 AirBnB-clone/
 │
 ├── controllers/
