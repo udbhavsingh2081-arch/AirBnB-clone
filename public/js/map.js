@@ -27,6 +27,6 @@ L.marker([lat, lng],{   icon: customIcon})
     .addTo(map)
     .bindPopup(`
         <h4>${locationName}</h4>
-         <p>Wellcome to Wanderlust!</p>
+         <p>Wellcome to StayVerse!</p>
          `)
     .openPopup();

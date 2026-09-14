@@ -1,26 +1,43 @@
-const mongoose=require("mongoose");
-const Listing=require("../models/listing.js");
-const sample=require("./data.js");
-main().then(()=>{
+    require("dotenv").config();
+const mongoose = require("mongoose");
+const Listing = require("../models/listing.js");
+const User = require("../models/user.js");
+const sample = require("./data.js");
+
+main().then(() => {
     console.log("connected with DB");
-}).catch((er)=>{
+}).catch((er) => {
     console.log(er);
-})
+});
 
 async function main() {
-  await  mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(process.env.ATLASDB_URL);
 }
 
-const initDB=async ()=>{
-await Listing.deleteMany({});
+const initDB = async () => {
+    await Listing.deleteMany({});
 
-sample.data=sample.data.map((obj)=>({
-    ...obj, owner:"6a8f1b177e04257389915cd0"
-}));
+    let user = await User.findOne({ username: "admin" });
 
-let listingdata=await Listing.insertMany(sample.data);
-console.log(listingdata);
-}
+    if (!user) {
+        user = new User({
+            username: "admin",
+            email: "admin@nuvora.com"
+        });
+
+        await User.register(user, "admin123");
+
+        console.log("Admin user created");
+    }
+
+    sample.data = sample.data.map((obj) => ({
+        ...obj,
+        owner: user._id
+    }));
+
+    let listingdata = await Listing.insertMany(sample.data);
+
+    console.log(`${listingdata.length} listings inserted`);
+};
 
 initDB();
-    

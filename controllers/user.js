@@ -11,7 +11,7 @@ module.exports.signUp=(async(req,res)=>{
    let signedUser=  await User.register(newUser,password);
           req.login(signedUser,(err)=>{
                if(err){ return next(err);}
-                 req.flash("success","Wellcome to WanderLust");
+                 req.flash("success","Wellcome to StayVerse");
      res.redirect("/listings");})  
 } catch(er){
           req.flash("error","User already existed with same details!");
@@ -29,7 +29,7 @@ module.exports.login=async(req,res)=>{
 
         delete req.session.redirectUrl;
 
-          req.flash("success","Wellcome back to WanderLust");
+          req.flash("success","Wellcome back to StayVerse");
   res.redirect(redirectUrl);
 
 };
