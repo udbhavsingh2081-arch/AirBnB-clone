@@ -21,7 +21,7 @@ router.get("/new",isloggedIn,wrapAsync(listingControllers.rednerNewList));
 //router.post("/",validateListing,wrapAsync(listingControllers.CreateNewList));
 router.post(
     "/",isloggedIn,
-     upload.single("listing[image]"),
+   upload.array("listing[images]", 10),
     validateListing,
     geocodeLocation,
     wrapAsync(listingControllers.CreateNewList)
@@ -35,7 +35,7 @@ router.get("/search",wrapAsync(listingControllers.searchList));
 router.get("/:id/edit",isloggedIn,isowner,wrapAsync(listingControllers.renderEditList));
 
 
-router.put("/:id",isloggedIn,isowner, upload.single("listing[image]"),validateListing,geocodeLocation,wrapAsync(listingControllers.editList));
+router.put("/:id",isloggedIn,isowner, upload.array("listing[images]", 10),validateListing,geocodeLocation,wrapAsync(listingControllers.editList));
 
 //Delete
 router.delete("/:id",isloggedIn,isowner,wrapAsync(listingControllers.Destroy));

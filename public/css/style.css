@@ -19,6 +19,9 @@ body{
     background-color: white;
     margin-bottom: 1rem;
 }
+.navbar-collapse{
+    background-color: white;
+}
 .nav-link{
     color: black;
 }

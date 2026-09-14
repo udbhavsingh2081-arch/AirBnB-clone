@@ -12,16 +12,23 @@ const schemalisting = new mongoose.Schema({
         required: true,
     },
 
-    image: {
-        filename: {
-            type: String,
-            default: "listingimage",
-        },
-        url: {
-            type: String,
-            default: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
-        },
+  image: {
+    filename: {
+        type: String,
+        default: "listingimage",
     },
+    url: {
+        type: String,
+        default: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+    },
+},
+
+images: [
+    {
+        filename: String,
+        url: String
+    }
+],
     category: {
         type: String,
           enum: [

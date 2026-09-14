@@ -5,10 +5,26 @@
     </div>
 
     <div class="card card-listing col-6 offset-3 show-card">
-          <img src="<%=data.image.url %>" class="card-img-top show-img" alt="...">
+
+<% if (data.images && data.images.length > 0) { %>
+
+  <% data.images.forEach(image => { %>
+    <img src="<%= image.url %>"
+         class="card-img-top show-img mb-3"
+         alt="Listing image">
+  <% }) %>
+
+<% } else { %>
+
+  <img src="<%=data.image.url %>"
+       class="card-img-top show-img"
+       alt="Listing image">
+
+<% } %>
+
   <div class="card-body">
     <p class="card-text">
-      <b>Owned By :</b>  <i> <%= data.owner.username %></i></b>
+      <b>Owned By :</b>  <i> <%= data.owner.username %></i>
       <br>
         <%=data.description %>
         <br>

@@ -12,12 +12,19 @@ module.exports.rednerNewList=(async(req,res)=>{
 module.exports.CreateNewList=(async (req,res,next)=>{
           let newList=await new Listing(req.body.listing);     
           newList.owner=req.user._id;
-              if (req.file) {
-        newList.image = {
-            url: req.file.path,
-            filename: req.file.filename
-        };
-    }
+
+         if (req.files && req.files.length > 0) {
+    newList.images = req.files.map(file => ({
+        url: file.path,
+        filename: file.filename
+    }));
+
+    newList.image = {
+        url: req.files[0].path,
+        filename: req.files[0].filename
+    };
+}
+
      if(req.coordinates){
         newList.geometry = req.coordinates;
     }
