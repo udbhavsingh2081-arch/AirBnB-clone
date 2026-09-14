@@ -29,7 +29,7 @@ const LocalStrategy=require("passport-local");
 const passport = require("passport");
 
 app.use(session({
-    secret :"my super secretkey",
+   secret : process.env.SECRET,
     resave : false,
     saveUninitialized: true,
     cookie :{
@@ -69,13 +69,12 @@ main().then(()=>{
 })
 
 async function main() {
-    console.log("Mongo URL:", process.env.ATLASDB_URL);
   await  mongoose.connect(MongoUrl);
 }
 
-app.get("/",wrapAsync(async(req,res)=>{
-    res.send("success");
-}))
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 
 
