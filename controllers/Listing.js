@@ -34,13 +34,13 @@ module.exports.renderEditList=(async (req,res)=>{
      let list=await Listing.findById(id);
      if(!list){
         req.flash("error","listing not existed!")
-        res.redirect("/listings")
+      return  res.redirect("/listings")
      }
      if (list.image && list.image.url) {
-     let originalImageUrl=list.image.url;}
+     let originalImageUrl=list.image.url;
     
      originalImageUrl=originalImageUrl.replace("/upload","/upload/w_200");
-     list.image.url=originalImageUrl;
+     list.image.url=originalImageUrl;}
      res.render("edit",{list});
 });
 
@@ -119,3 +119,4 @@ let {country, city, minPrice, maxPrice }=req.query;
 res.render("index.ejs", {
     allListings
 });
+}
