@@ -16,12 +16,12 @@ const upload = multer({ storage });
 router.get("/",wrapAsync(listingControllers.index));
 
 //new List
-router.get("/new",isloggedIn,wrapAsync(listingControllers.rednerNewList));
+router.get("/new",isloggedIn,wrapAsync(listingControllers.renderNewList));
 
 //router.post("/",validateListing,wrapAsync(listingControllers.CreateNewList));
 router.post(
     "/",isloggedIn,
-   upload.array("listing[images]", 10),
+  upload.single("listing[image]"),
     validateListing,
     geocodeLocation,
     wrapAsync(listingControllers.CreateNewList)

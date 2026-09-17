@@ -5,7 +5,7 @@ module.exports.index=(async (req,res)=>{
     res.render("index.ejs",{allListings});
 });
 
-module.exports.rednerNewList=(async(req,res)=>{
+module.exports.renderNewList=(async(req,res)=>{
     res.render("new");
 });
 
@@ -13,17 +13,12 @@ module.exports.CreateNewList=(async (req,res,next)=>{
           let newList= new Listing(req.body.listing);     
           newList.owner=req.user._id;
 
-         if (req.files && req.files.length > 0) {
-    newList.images = req.files.map(file => ({
-        url: file.path,
-        filename: file.filename
-    }));
-
-    newList.image = {
-        url: req.files[0].path,
-        filename: req.files[0].filename
-    };
-}
+        if (req.file) {
+        newList.image = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
+    }
 
      if(req.coordinates){
         newList.geometry = req.coordinates;
@@ -41,7 +36,9 @@ module.exports.renderEditList=(async (req,res)=>{
         req.flash("error","listing not existed!")
         res.redirect("/listings")
      }
-     let originalImageUrl=list.image.url;
+     if (list.image && list.image.url) {
+     let originalImageUrl=list.image.url;}
+    
      originalImageUrl=originalImageUrl.replace("/upload","/upload/w_200");
      list.image.url=originalImageUrl;
      res.render("edit",{list});
@@ -117,11 +114,8 @@ let {country, city, minPrice, maxPrice }=req.query;
         }
     }
 
-      let allListings = await Listing.find(filter);
+ const allListings = await Listing.find(filter);
 
-    if(allListings.length===0){ 
-        allListings=await Listing.find();
-         req.flash("error","Listing not available!")
-    }
-   res.redirect("/listings")
-}
+res.render("index.ejs", {
+    allListings
+});

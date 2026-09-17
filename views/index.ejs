@@ -1,10 +1,17 @@
 <% layout("/layouts/boilerplate") %>
  <%- include("./includes/filter") %>
   <br><br>
+  <% if (allListings.length === 0) { %>
 
+    <div class="text-center mt-5">
+        <h3>No listings found</h3>
+        <p>Try changing your search or filters.</p>
+    </div>
+
+<% } else { %>
    <ul>
     <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
-           <% for(list of allListings){ %>
+           <% for(let list of allListings){ %>
             <a href="/listings/<%=list._id %> " class="list-link">
        <div class="card card-listing">
   <img   loading="lazy" src="<%= list.image.url.replace('/upload','/upload/w_500,q_auto,f_auto') %>" class="card-img-top"  alt="listings-image" style="height: 20rem;">
@@ -23,4 +30,5 @@
     </div>
     
    </ul>
+   <% }%>
 
