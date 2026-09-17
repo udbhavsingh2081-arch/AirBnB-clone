@@ -10,7 +10,7 @@ module.exports.rednerNewList=(async(req,res)=>{
 });
 
 module.exports.CreateNewList=(async (req,res,next)=>{
-          let newList=await new Listing(req.body.listing);     
+          let newList= new Listing(req.body.listing);     
           newList.owner=req.user._id;
 
          if (req.files && req.files.length > 0) {
@@ -80,9 +80,9 @@ module.exports.showList=(async(req,res)=>{
         .populate("owner");
 
     console.log(data);
-    if(data===null){ 
+    if(!data){ 
         req.flash("error","Listing not exist!")
-        res.redirect("/listings");
+       return res.redirect("/listings");
     }
     res.render("show",{data});
 });

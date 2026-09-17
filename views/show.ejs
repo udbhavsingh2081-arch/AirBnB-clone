@@ -24,7 +24,7 @@
 
   <div class="card-body">
     <p class="card-text">
-      <b>Owned By :</b>  <i> <%= data.owner.username %></i>
+      <b>Owned By :</b>  <i> <%= data.owner ? data.owner.username : "Unknown Host" %></i>
       <br>
         <%=data.description %>
         <br>
